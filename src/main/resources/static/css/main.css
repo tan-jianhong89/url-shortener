@@ -1,0 +1,28 @@
+html,
+body {
+    height: 100%;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    width: 50%;
+}
+
+.form-group {
+    margin-top: 10px;
+}
+
+.form-action {
+    margin-top: 10px;
+}
+
+#logo {
+    font-size: 4em;
+    text-align: center;
+}
