@@ -20,13 +20,4 @@ public class ShortUrlHelper {
         return shortUrl;
     }
 
-    public static String createAbsoluteUrl(String url) {
-        if(!url.startsWith("www.")&& !url.startsWith("http://")){
-            url = "www."+url;
-        }
-        if(!url.startsWith("http://")){
-            url = "http://"+url;
-        }
-        return url;
-    }
 }

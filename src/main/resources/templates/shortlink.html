@@ -15,16 +15,19 @@
             <div id="logo">
                 <span href="/">Small-Url</span>
             </div>
-            <form action="/generate" method="post">
+            <form action="/" method="get">
                 <div class="form-group">
                     <label for="original">Original Link</label>
-                    <input id="original" name="url" type="text" class="form-control" aria-describedby="linkHelp" placeholder="Enter link">
-                    <small id="linkHelp" class="d-block form-text text-muted">Enter the original link that you want to shorten.</small>
-                    <th:small th:if="${error}" th:text="${error}" class="d-block form-text text-danger">
-                    </th:small>
+                    <input id="original" type="text" th:value="${shortUrlForm.getOriginalUrl()}" class="form-control" aria-describedby="linkHelp" placeholder="Enter link" readonly>
+                    <small id="linkHelp" class="form-text text-muted">Enter the original link that you want to shorten.</small>
+                </div>
+                <div class="form-group">
+                    <label for="shortlink">Short Link</label>
+                    <input type="text" th:value="${shortUrlForm.getKey()}" class="form-control" id="shortlink" placeholder="Press Generate" readonly>
                 </div>
                 <div class="form-action">
-                    <button id="generate-btn" type="submit" class="btn btn-primary">Generate</button>
+                    <button id="generate-btn" type="submit" class="btn btn-primary">Create another</button>
+                    <button type="button" class="btn btn-secondary" data-clipboard-target="#shortlink">Copy</button>
                 </div>
             </form>
         </div>
