@@ -1,6 +1,6 @@
 package com.assignment.urlshortener.app;
 
-import com.assignment.urlshortener.api.entity.ShortUrl;
+import com.assignment.urlshortener.api.entity.ShortenUrl;
 import com.assignment.urlshortener.api.service.UrlShortenService;
 import com.assignment.urlshortener.utils.ShortUrlHelper;
 import org.apache.logging.log4j.LogManager;
@@ -34,7 +34,6 @@ public class AppController {
         return "index";
     }
 
-    // Add handling for allow cross origin from any domain
     @PostMapping("/generate")
     public String generate(@RequestParam(name = "url") String url,
                            Model model) {
@@ -44,9 +43,9 @@ public class AppController {
             return "index";
         } else {
             String shortUrl = ShortUrlHelper.createShortUrl(key);
-            ShortUrl shortUrlForm = new ShortUrl(shortUrl, url);
-            logger.info(shortUrlForm);
-            model.addAttribute("shortUrlForm", shortUrlForm);
+            ShortenUrl shortenUrlForm = new ShortenUrl(shortUrl, url);
+            logger.info(shortenUrlForm);
+            model.addAttribute("shortUrlForm", shortenUrlForm);
             return "shortlink";
         }
     }

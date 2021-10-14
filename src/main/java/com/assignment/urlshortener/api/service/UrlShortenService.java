@@ -1,6 +1,6 @@
 package com.assignment.urlshortener.api.service;
 
-import com.assignment.urlshortener.api.entity.ShortUrl;
+import com.assignment.urlshortener.api.entity.ShortenUrl;
 import com.assignment.urlshortener.api.repository.ShortUrlRepository;
 import org.apache.commons.text.RandomStringGenerator;
 import org.apache.commons.validator.routines.UrlValidator;
@@ -33,7 +33,7 @@ public class UrlShortenService implements IUrlShortenService {
         } else {
             RandomStringGenerator generator = new RandomStringGenerator.Builder().withinRange('0', 'z').filteredBy(Character::isLetterOrDigit).build();
             String key = generator.generate(8);
-            shortUrlRepository.save(new ShortUrl(key, originalUrl));
+            shortUrlRepository.save(new ShortenUrl(key, originalUrl));
             return key;
         }
     }

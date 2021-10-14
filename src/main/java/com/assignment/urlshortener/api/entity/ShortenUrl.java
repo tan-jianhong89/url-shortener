@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class ShortUrl implements Serializable {
+public class ShortenUrl implements Serializable {
 
     private static final long serialVersionUID = -1526255719043681976L;
 
@@ -17,17 +17,17 @@ public class ShortUrl implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name="key", length=8, nullable=false, unique=true)
-    private String key;
+    @Column(name="short_url_key", length=8, nullable=false, unique=true)
+    private String shortUrlKey;
 
     @Column(name="original_url", length=2048, nullable=false)
     private String originalUrl;
 
-    public ShortUrl() {
+    public ShortenUrl() {
     }
 
-    public ShortUrl(String key, String originalUrl) {
-        this.key = key;
+    public ShortenUrl(String shortUrlKey, String originalUrl) {
+        this.shortUrlKey = shortUrlKey;
         this.originalUrl = originalUrl;
     }
 
@@ -39,12 +39,12 @@ public class ShortUrl implements Serializable {
         this.id = id;
     }
 
-    public String getKey() {
-        return key;
+    public String getShortUrlKey() {
+        return shortUrlKey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setShortUrlKey(String shortUrlKey) {
+        this.shortUrlKey = shortUrlKey;
     }
 
     public String getOriginalUrl() {
@@ -61,21 +61,21 @@ public class ShortUrl implements Serializable {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        ShortUrl shortUrl = (ShortUrl) o;
+        ShortenUrl shortenUrl = (ShortenUrl) o;
 
-        return new EqualsBuilder().append(id, shortUrl.id).append(key, shortUrl.key).append(originalUrl, shortUrl.originalUrl).isEquals();
+        return new EqualsBuilder().append(id, shortenUrl.id).append(shortUrlKey, shortenUrl.shortUrlKey).append(originalUrl, shortenUrl.originalUrl).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(id).append(key).append(originalUrl).toHashCode();
+        return new HashCodeBuilder(17, 37).append(id).append(shortUrlKey).append(originalUrl).toHashCode();
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
-                .append("key", key)
+                .append("shortUrlKey", shortUrlKey)
                 .append("originalUrl", originalUrl)
                 .toString();
     }
