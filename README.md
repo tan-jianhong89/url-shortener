@@ -32,3 +32,7 @@
 
 ## Deployment
 - Service can be deployed to Cloud with GCP Cloud Run, Cloud SQL and Memorystore
+
+## Reference Links
+- https://cloud.spring.io/spring-cloud-gcp/multi/multi__spring_jdbc.html
+- https://github.com/spring-cloud/spring-cloud-gcp/tree/main/spring-cloud-gcp-samples/spring-cloud-gcp-sql-mysql-sample
