@@ -2,6 +2,7 @@ package com.assignment.urlshortener.app;
 
 import com.assignment.urlshortener.api.entity.ShortenUrl;
 import com.assignment.urlshortener.api.service.UrlShortenService;
+import com.assignment.urlshortener.exception.NoSuchElementFoundException;
 import com.assignment.urlshortener.utils.ShortUrlHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -30,7 +28,7 @@ public class AppController {
 
     @GetMapping({"/", "/generate"})
     public String index() {
-        logger.info("Load index()");
+        logger.debug("Load index()");
         return "index";
     }
 
@@ -44,7 +42,7 @@ public class AppController {
         } else {
             String shortUrl = ShortUrlHelper.createShortUrl(key);
             ShortenUrl shortenUrlForm = new ShortenUrl(shortUrl, url);
-            logger.info(shortenUrlForm);
+            logger.debug(shortenUrlForm);
             model.addAttribute("shortUrlForm", shortenUrlForm);
             return "shortlink";
         }
@@ -56,14 +54,20 @@ public class AppController {
 
         String originalUrl = urlShortenService.getOriginalUrl(shorturlkey);
         if (originalUrl == null || originalUrl.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find corresponding url", null);
+            throw new NoSuchElementFoundException("Unable to find corresponding url");
         } else {
             RedirectView redirectView = new RedirectView();
-            logger.info("originalUrl: " + originalUrl);
+            logger.debug("originalUrl: " + originalUrl);
             redirectView.setUrl(originalUrl);
             redirectView.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
             return redirectView;
         }
+    }
+
+    @ExceptionHandler(NoSuchElementFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleNoSuchElementFoundException(NoSuchElementFoundException exception) {
+        return "404";
     }
 
 }
