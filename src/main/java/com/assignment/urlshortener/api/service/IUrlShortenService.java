@@ -4,6 +4,6 @@ public interface IUrlShortenService {
 
     String shortenUrl(String originalUrl);
 
-    String getOriginalUrl(String shortUrl);
+    String getOriginalUrl(String shortUrlKey);
 
 }

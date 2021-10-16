@@ -7,6 +7,7 @@ import org.apache.commons.validator.routines.UrlValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -38,8 +39,10 @@ public class UrlShortenService implements IUrlShortenService {
         }
     }
 
-    public String getOriginalUrl(String shortUrl) {
-        String originalUrl = shortUrlRepository.getOriginalUrl(shortUrl);
+    @Cacheable(value = "originalUrl", key = "#shorturlkey")
+    public String getOriginalUrl(String shorturlkey) {
+        String originalUrl = shortUrlRepository.getOriginalUrl(shorturlkey);
+        logger.info("UrlShortenService.getOriginalUrl(), " + shorturlkey);
         return originalUrl;
     }
 

@@ -28,7 +28,7 @@ public class AppController {
         this.urlShortenService = urlShortenService;
     }
 
-    @GetMapping("/")
+    @GetMapping({"/", "/generate"})
     public String index() {
         logger.info("Load index()");
         return "index";
@@ -50,11 +50,11 @@ public class AppController {
         }
     }
 
-    @GetMapping(value = {"/s/{shorturl}"})
+    @GetMapping(value = {"/s/{shorturlkey}"})
     public RedirectView redirectToOriginalUrl(
-            @PathVariable(value = "shorturl", required = true) String shorturl) {
+            @PathVariable(value = "shorturlkey", required = true) String shorturlkey) {
 
-        String originalUrl = urlShortenService.getOriginalUrl(shorturl);
+        String originalUrl = urlShortenService.getOriginalUrl(shorturlkey);
         if (originalUrl == null || originalUrl.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find corresponding url", null);
         } else {
