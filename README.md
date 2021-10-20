@@ -14,7 +14,7 @@
 
 ## Algorithm
 - Character Set - Base 62 [A-Z][a-z][0-9] to allow valid URL string
-- Url Length – length 8, will give 64^8 = ~218 Trillion URLs
+- Url Length – length 8, will give 62^8 = ~218 Trillion URLs
 
 ## Database Choice
 - RDBMS database like MySQL will be used for this due to more experience with it
